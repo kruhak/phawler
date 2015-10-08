@@ -1,0 +1,15 @@
+{
+  "name": "phawler",
+  "description": "Crawling tool for PhantomJS",
+  "version": "1.0.0",
+  "dependencies": {
+    "minimist": "~ 1.2.0"
+  },
+  "devDependencies" : {
+    "babel": "*",
+    "gulp": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-babel": "*"
+  },
+  "license": "MIT"
+}
