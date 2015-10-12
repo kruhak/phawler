@@ -4,13 +4,13 @@ export default (function() {
   var result = null;
 
   return {
-//    init: function(config) {
-//      if (config.bigfiles) {
-//        if (config.bigfiles.maxFileSize) {
-//          maxFileSize = config.bigfiles.maxFileSize;
-//        }
-//      }
-//    },
+    init: function(config) {
+      if (config.bigfiles) {
+        if (config.bigfiles.maxFileSize) {
+          maxFileSize = config.bigfiles.maxFileSize;
+        }
+      }
+    },
 
     pageInit: function(pageResult) {
       result = pageResult;

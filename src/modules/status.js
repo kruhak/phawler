@@ -4,7 +4,7 @@ export default (function() {
 
   return {
 
-    init: function(pageResult) {
+    initPage: function(pageResult) {
       result = pageResult;
     },
 

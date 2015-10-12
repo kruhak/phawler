@@ -1,11 +1,26 @@
 var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
+var jeditor = require("gulp-json-editor");
 
-gulp.task("default", function () {
+var buildDir = 'build';
+
+gulp.task('compile', function() {
   return gulp.src('src/**/*.js')
-    .pipe(sourcemaps.init())
     .pipe(babel())
-    .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest(buildDir));
 });
+
+gulp.task('package', function() {
+  return gulp.src('package.json')
+    .pipe(jeditor(function(json) {
+      json.dependencies = {
+        "minimist": "~ 1.2.0",
+        "urijs": "~ 1.16.0"
+      };
+
+      return json;
+    }))
+    .pipe(gulp.dest(buildDir));
+});
+
+gulp.task('default', ['compile', 'package']);

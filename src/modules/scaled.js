@@ -5,13 +5,13 @@ export default (function() {
   var maxScaleIndex = 1.05;
 
   return {
-//    init: function(config) {
-//      if (config.scaledImages) {
-//        if (config.scaledImages.maxScaleIndex) {
-//          maxScaleIndex = config.scaledImages.maxScaleIndex;
-//        }
-//      }
-//    },
+    init: function(config) {
+      if (config.scaledImages) {
+        if (config.scaledImages.maxScaleIndex) {
+          maxScaleIndex = config.scaledImages.maxScaleIndex;
+        }
+      }
+    },
 
     initPage: function(pageResult) {
       result = pageResult;

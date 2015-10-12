@@ -10,7 +10,7 @@ export default class Crawler {
     this.modules = [];
 
     this.index = 0;
-    this.maxIndex = 5;
+    this.limit = null;
     this.searchLinks = true;
 
     this.baseUrl = null;
@@ -53,12 +53,16 @@ export default class Crawler {
 
   /*********** PHANTOM FUNCTIONS **************/
 
-  init(modules) {
+  init(modules, config) {
     var self = this;
+
+    if (config.limit) {
+      this.limit = config.limit;
+    }
 
     // Init modules
     self.modules = modules;
-    this.invokeModules('init');
+    this.invokeModules('init', config);
 
     // Create PhantomJS page.
     var page = webpage.create();
@@ -105,7 +109,7 @@ export default class Crawler {
   next() {
     this.index++;
 
-    if (this.index < this.maxIndex && this.toCrawl[this.index]) {
+    if (this.index < this.limit && this.toCrawl[this.index]) {
       this.crawl(this.toCrawl[this.index]);
     }
     else {

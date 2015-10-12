@@ -78,3 +78,7 @@ crashlytics-build.properties
 
 # Build directory
 build
+
+# Result files
+result.json
+/screens

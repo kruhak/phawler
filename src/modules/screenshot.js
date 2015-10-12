@@ -7,8 +7,14 @@ export default (function() {
     folder = './screens';
 
   return {
-    init: function() {
+    init: function(config) {
       fs.removeTree(folder);
+
+      if (config.screenshot) {
+        format = config.screenshot.format || format;
+        quality = config.screenshot.quality || quality;
+        folder = config.screenshot.folder || folder;
+      }
     },
 
     pageLoaded: function(page) {
