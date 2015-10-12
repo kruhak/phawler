@@ -29,7 +29,7 @@ if (Object.keys(args).length === 1 || args.help) {
     Phawler. Module based crawling tool working on PhantomJS.
 
     Usage:
-      phawler -u <site_url> <options>
+      phantomjs phawler.js -u <site_url> <options>
 
     Options:
 

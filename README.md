@@ -8,7 +8,7 @@ You can use ``` npm install ``` or manually put [minimist](https://github.com/su
 
 ## Usage
 
-    phawler -u <site_url> <options>
+    phantomjs phawler.js -u <site_url> <options>
 
     Options:
 
