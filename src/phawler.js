@@ -37,7 +37,7 @@ if (Object.keys(args).length === 1 || args.help) {
     -r, --report      Reporter module. Available values: json (default)
     -l, --limit       Maximum number of pages that can be crawled
     -c, --config      Path to configuration file
-    -m, --modules     Comma separeted crawler modules list (All modules will be runing by default)
+    -m, --modules     Comma separated crawler modules list (All modules will be running by default)
     -h, --help        Display help information
  `;
 
