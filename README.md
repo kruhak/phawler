@@ -4,9 +4,8 @@
 
 ## Installation
 
-Install dependencies:
   - Install [PhantomJS](http://phantomjs.org/)
-  - Execute `npm install` within **Phawler** root directory or manually put [minimist](https://github.com/substack/minimist) and [urijs](https://github.com/medialize/URI.js/) modules to **node_modules** directory.
+  - Install dependencies by executing `npm install` within **Phawler** root directory or manually put [minimist](https://github.com/substack/minimist) and [urijs](https://github.com/medialize/URI.js/) modules to **node_modules** directory.
 
 ## Available modules
 
