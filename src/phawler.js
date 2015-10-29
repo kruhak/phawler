@@ -59,7 +59,7 @@ modulesList.forEach((name) => {
 });
 
 // Init report module
-if (args.report && typeof args.modules === 'string') {
+if (args.report && typeof args.report === 'string') {
   reporterName = args.report;
 }
 var reporterModule = require('./reporters/' + reporterName + '.js');
@@ -80,6 +80,6 @@ crawler.start(args.url);
 crawler.crawlingEnd = () => {
   var reporter = new reporterModule(crawler.result);
   var report = reporter.report();
-  fs.write('result.json', report, 'w');
+  fs.write('result.' + reporterName, report, 'w');
   phantom.exit();
 };
