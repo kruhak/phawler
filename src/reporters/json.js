@@ -1,5 +1,3 @@
-var fs = require('fs');
-
 export default class JsonReporter {
 
   constructor(result) {
@@ -7,9 +5,7 @@ export default class JsonReporter {
   }
 
   report() {
-    var stringResult = JSON.stringify(this.result, null, 4);
-    //console.log(stringResult);
-    fs.write('result.json', stringResult, 'w');
+    return JSON.stringify(this.result, null, 4);
   }
 
 }

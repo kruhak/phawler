@@ -79,6 +79,7 @@ crawler.init(modules, config);
 crawler.start(args.url);
 crawler.crawlingEnd = () => {
   var reporter = new reporterModule(crawler.result);
-  reporter.report();
+  var report = reporter.report();
+  fs.write('result.json', report, 'w');
   phantom.exit();
 };
