@@ -80,5 +80,5 @@ crashlytics-build.properties
 build
 
 # Result files
-result.json
+result.*
 /screens

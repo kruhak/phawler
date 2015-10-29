@@ -34,7 +34,7 @@ if (Object.keys(args).length === 1 || args.help) {
     Options:
 
     -u, --url         URL what will be crawled
-    -r, --report      Reporter module. Available values: json (default)
+    -r, --report      Reporter module. Available values: json (default), xml
     -l, --limit       Maximum number of pages that can be crawled
     -c, --config      Path to configuration file
     -m, --modules     Comma separated crawler modules list (All modules will be running by default)

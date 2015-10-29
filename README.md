@@ -18,6 +18,7 @@
 **Reporting:**
  
  - **JSON (json)** - saves crawling results reports to files in JSON format.
+ - **XML (xml)** - saves crawling results reports to files in XML format.
 
 ## Usage
 
@@ -26,7 +27,7 @@
     Options:
 
     -u, --url         URL what will be crawled
-    -r, --report      Reporter module. Available values: json (default)
+    -r, --report      Reporter module. Available values: json (default), xml
     -l, --limit       Maximum number of pages that can be crawled
     -c, --config      Path to configuration file
     -m, --modules     Comma separated crawler modules list (All modules will be running by default)
