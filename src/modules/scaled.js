@@ -19,17 +19,14 @@ export default (function() {
 
     pageLoaded: function(page) {
       var scaledImages = page.evaluate(function(maxScaleIndex) {
-        var scaledImages = {};
+        var scaledImages = [];
         var images = document.getElementsByTagName('img');
         for (var i = 0; i < images.length; i++) {
           if (images[i].width < images[i].naturalWidth || (images[i].height < images[i].naturalHeight)) {
             var widthRation = (images[i].naturalWidth / images[i].width).toFixed(2);
             var heightRatio = (images[i].naturalHeight / images[i].height).toFixed(2);
             if (parseFloat(widthRation) > maxScaleIndex || parseFloat(heightRatio) > maxScaleIndex) {
-              scaledImages[images[i].src] = {
-                widthRatio: widthRation,
-                heightRatio: heightRatio
-              }
+              scaledImages.push(images[i].src);
             }
           }
         }
