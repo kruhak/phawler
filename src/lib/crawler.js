@@ -36,13 +36,13 @@ export default class Crawler {
   filterUrls(urls) {
     return urls
       .filter((url, index) => {
-        return (urls.indexOf(url) === index) && (url.indexOf(self.baseUrl) === 0 || !new RegExp('^(#|ftp|javascript|http|mailto|tel)').test(url));
+        return (urls.indexOf(url) === index) && (url.indexOf(this.baseUrl) === 0 || !new RegExp('^(#|ftp|javascript|http|mailto|tel)').test(url));
       })
       .map((url) => {
           return new URI(url, this.baseUrl);
       })
       .filter((url) => {
-        return (url.hostname === this.baseUrl.hostname) && !self.result[url.toString()] && (self.toCrawl.indexOf(url.toString()) === -1);
+        return (url.hostname === this.baseUrl.hostname) && !this.result[url.toString()] && (this.toCrawl.indexOf(url.toString()) === -1);
       })
       .map((url) => {
         return url.toString();
@@ -97,7 +97,7 @@ export default class Crawler {
       });
     }
     else {
-      self.next();
+      this.next();
     }
   }
 
