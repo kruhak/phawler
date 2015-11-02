@@ -34,17 +34,15 @@ export default class Crawler {
   }
 
   filterUrls(urls) {
-    var self = this;
-
     return urls
       .filter((url, index) => {
         return (urls.indexOf(url) === index) && (url.indexOf(self.baseUrl) === 0 || !new RegExp('^(#|ftp|javascript|http|mailto|tel)').test(url));
       })
       .map((url) => {
-          return new URI(url, self.baseUrl);
+          return new URI(url, this.baseUrl);
       })
       .filter((url) => {
-        return (url.hostname === self.baseUrl.hostname) && !self.result[url.toString()] && (self.toCrawl.indexOf(url.toString()) === -1);
+        return (url.hostname === this.baseUrl.hostname) && !self.result[url.toString()] && (self.toCrawl.indexOf(url.toString()) === -1);
       })
       .map((url) => {
         return url.toString();
@@ -54,22 +52,21 @@ export default class Crawler {
   /*********** PHANTOM FUNCTIONS **************/
 
   init(modules, config) {
-    var self = this;
-
     if (config.limit) {
       this.limit = config.limit;
     }
 
     // Init modules
-    self.modules = modules;
+    this.modules = modules;
     this.invokeModules('init', config);
 
     // Create PhantomJS page.
     var page = webpage.create();
-    page.onResourceRequested = (requestData, networkRequest) => { self.invokeModules('onResourceRequested', requestData, networkRequest); };
-    page.onResourceReceived = (response) => { self.invokeModules('onResourceReceived', response) };
-    page.onLoadFinished = (status) => { self.invokeModules('onLoadFinished', status) };
-    self.page = page;
+    page.onResourceRequested = (requestData, networkRequest) => { this.invokeModules('onResourceRequested', requestData, networkRequest); };
+    page.onResourceReceived = (response) => { this.invokeModules('onResourceReceived', response) };
+    page.onLoadFinished = (status) => { this.invokeModules('onLoadFinished', status) };
+
+    this.page = page;
   }
 
   start(baseUrl) {
@@ -80,8 +77,6 @@ export default class Crawler {
   }
 
   crawl(url) {
-    var self = this;
-
     if (!this.result[url]) {
       this.result[url] = {};
 
@@ -90,14 +85,14 @@ export default class Crawler {
       this.page.open(url, (status) => {
         console.log(url + ': ' + status);
 
-        self.invokeModules('pageLoaded', this.page);
+        this.invokeModules('pageLoaded', this.page);
 
-        if (self.searchLinks) {
-          var urls = self.page.evaluate(evaluates.findUrls);
-          self.toCrawl = self.toCrawl.concat(self.filterUrls(urls));
+        if (this.searchLinks) {
+          var urls = this.page.evaluate(evaluates.findUrls);
+          this.toCrawl = this.toCrawl.concat(this.filterUrls(urls));
         }
 
-        self.next();
+        this.next();
 
       });
     }
