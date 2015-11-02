@@ -1,7 +1,3 @@
-/**
- * @module Bigfiles
- */
-
 export default (function() {
 
   var maxFileSize = 100;
@@ -31,10 +27,10 @@ export default (function() {
 
             if (size > maxFileSize) {
               if (!result['bigfiles']) {
-                result['bigfiles'] = {};
+                result['bigfiles'] = [];
               }
 
-              result['bigfiles'][response.url] = size.toFixed();
+              result['bigfiles'].push(response.url);
             }
           }
         }
