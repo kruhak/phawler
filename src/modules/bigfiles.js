@@ -1,3 +1,7 @@
+/**
+ * @module Bigfiles
+ */
+
 export default (function() {
 
   var maxFileSize = 100;

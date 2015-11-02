@@ -82,3 +82,6 @@ build
 # Result files
 result.*
 /screens
+
+# Generated documentation.
+/doc

@@ -1,9 +1,25 @@
+/**
+ * @module XmlReporter
+ */
+
+/** @class */
 export default class XmlReporter {
 
+  /**
+   * @constructor
+   *
+   * @param {object} result - Page result after crawling process end.
+   */
   constructor(result) {
+
+    /** @type {object} */
     this.result = result;
   }
 
+  /**
+   * @returns {string}
+   *   Formatted XML string.
+   */
   report() {
     var xml = '<?xml version="1.0" encoding="UTF-8"?>';
     xml += '<report>';

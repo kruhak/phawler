@@ -1,27 +1,88 @@
+/**
+ * @module Crawler
+ */
+
 import webpage from 'webpage';
 import evaluates from './evaluates';
 import URI from '../node_modules/urijs/src/URI.js';
 
+/** @class */
 export default class Crawler {
 
+  /**
+   * @constructor
+   */
   constructor() {
-    this.page = null;
 
+    /**
+     * PhantomJS page object.
+     *
+     * @type {object}
+     */
+    this.page = {};
+
+    /**
+     * Modules objects array.
+     *
+     * @type {Array}
+     */
     this.modules = [];
 
+    /**
+     * Current crawling index.
+     *
+     * @type {number}
+     */
     this.index = 0;
+
+    /**
+     * Count pages what can be crawled.
+     *
+     * @type {number}
+     */
     this.limit = null;
+
+    /**
+     * Search new links on a page.
+     *
+     * @type {boolean}
+     */
     this.searchLinks = true;
 
+    /**
+     * Base URL for search new links.
+     *
+     * @type {object}
+     */
     this.baseUrl = null;
+
+    /**
+     * Links for crawling.
+     *
+     * @type {Array}
+     */
     this.toCrawl = [];
+
+    /**
+     * Crawling results.
+     *
+     * @type {object}
+     */
     this.result = {};
 
+    /**
+     * Function what will be executed after crawling process.
+     *
+     * @type {function}
+     */
     this.crawlingEnd = null;
   }
 
-  /*********** MAIN FUNCTIONS **************/
-
+  /**
+   * Execute function from all modules.
+   *
+   * @param {string} event
+   */
   invokeModules(event) {
     var eventName = event;
     [].shift.apply(arguments);
@@ -33,6 +94,13 @@ export default class Crawler {
     });
   }
 
+  /**
+   * Delete duplicates, external and non-http links.
+   *
+   * @param {array} urls
+   *
+   * @returns {array} - Filtered URLs array.
+   */
   filterUrls(urls) {
     return urls
       .filter((url, index) => {
@@ -49,8 +117,12 @@ export default class Crawler {
       });
   }
 
-  /*********** PHANTOM FUNCTIONS **************/
-
+  /**
+   * Init modules, configuration and create PhantomJS page.
+   *
+   * @param {array} modules - Modules objects array.
+   * @param {object} config - Configuration object.
+   */
   init(modules, config) {
     if (config.limit) {
       this.limit = config.limit;
@@ -69,6 +141,11 @@ export default class Crawler {
     this.page = page;
   }
 
+  /**
+   * Start crawling process from provided base URL.
+   *
+   * @param {string} baseUrl - URL for start crawling.
+   */
   start(baseUrl) {
     this.baseUrl = new URI(baseUrl);
     this.toCrawl[this.index] = baseUrl;
@@ -76,6 +153,11 @@ export default class Crawler {
     this.crawl(this.toCrawl[this.index]);
   }
 
+  /**
+   * Crawl URL and invoke modules.
+   *
+   * @param {string} url - URL for crawl.
+   */
   crawl(url) {
     if (!this.result[url]) {
       this.result[url] = {};
@@ -101,6 +183,9 @@ export default class Crawler {
     }
   }
 
+  /**
+   * Crawl next URL or stop process.
+   */
   next() {
     this.index++;
 
