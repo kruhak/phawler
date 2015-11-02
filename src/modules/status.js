@@ -11,6 +11,7 @@ export default (function() {
     onLoadFinished: function(result, status) {
       result['status'] = status;
     }
+
   }
 
 }());

@@ -10,6 +10,7 @@ export default (function() {
   var result = null;
 
   return {
+
     initPage: function(pageResult) {
       result = pageResult;
     },
@@ -33,6 +34,7 @@ export default (function() {
         result['httpLinks'] = httpLinks;
       }
     }
+
   }
 
 }());

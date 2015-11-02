@@ -4,15 +4,14 @@ export default (function() {
   var result = null;
 
   return {
+
     init: function(config) {
       if (config.bigfiles) {
-        if (config.bigfiles.maxFileSize) {
-          maxFileSize = config.bigfiles.maxFileSize;
-        }
+        maxFileSize = config.bigfiles.maxFileSize || maxFileSize;
       }
     },
 
-    pageInit: function(pageResult) {
+    initPage: function(pageResult) {
       result = pageResult;
     },
 
@@ -22,8 +21,10 @@ export default (function() {
 
         for (var headerName in response.headers) {
           var header = response.headers[headerName];
+
           if (header.name === 'Content-Length') {
             size = parseInt(header.value) / 1024;
+
             if (size > maxFileSize) {
               if (!result['bigfiles']) {
                 result['bigfiles'] = {};
@@ -35,6 +36,7 @@ export default (function() {
         }
       }
     }
+
   }
 
 }());
