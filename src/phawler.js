@@ -2,7 +2,7 @@
 
 import system from 'system';
 import fs from 'fs';
-import minimist from './node_modules/minimist/index.js';
+import minimist from './vendor/minimist/index.js';
 import Crawler from './lib/crawler.js'
 
 var args = minimist(system.args, {

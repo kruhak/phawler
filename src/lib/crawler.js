@@ -4,7 +4,7 @@
 
 import webpage from 'webpage';
 import evaluates from './evaluates';
-import URI from '../node_modules/urijs/src/URI.js';
+import URI from '../vendor/urijs/src/URI.js';
 
 /** @class */
 export default class Crawler {

@@ -1,8 +1,13 @@
 var gulp = require('gulp');
+var del = require('del');
 var babel = require('gulp-babel');
-var jeditor = require("gulp-json-editor");
+var runSequence = require('run-sequence');
 
 var buildDir = 'build';
+
+gulp.task('clean', function() {
+    return del(['build/**/*']);
+});
 
 gulp.task('compile', function() {
   return gulp.src('src/**/*.js')
@@ -11,16 +16,25 @@ gulp.task('compile', function() {
 });
 
 gulp.task('package', function() {
-  return gulp.src('package.json')
-    .pipe(jeditor(function(json) {
-      json.dependencies = {
-        "minimist": "~ 1.2.0",
-        "urijs": "~ 1.16.0"
-      };
-
-      return json;
-    }))
-    .pipe(gulp.dest(buildDir));
+  return gulp.src('package.json').pipe(gulp.dest(buildDir + '/vendor'));
 });
 
-gulp.task('default', ['compile', 'package']);
+gulp.task('module:minimist', function() {
+    return gulp.src('node_modules/minimist/**/*').pipe(gulp.dest(buildDir + '/vendor/minimist'));
+});
+
+gulp.task('module:urijs', function() {
+    return gulp.src('node_modules/urijs/**/*').pipe(gulp.dest(buildDir + '/vendor/urijs'));
+});
+
+gulp.task('build', function(callback) {
+    runSequence(
+        'clean',
+        ['compile',
+        'module:minimist',
+        'module:urijs'],
+        callback
+    );
+});
+
+gulp.task('default', ['build']);

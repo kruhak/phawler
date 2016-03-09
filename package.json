@@ -4,9 +4,12 @@
   "version": "0.0.1",
   "dependencies": {
     "babel": "~ 5.0",
-    "gulp": "~ 3.0",
+    "gulp": "*",
     "gulp-babel": "~ 5.0",
-    "gulp-json-editor": "~ 2.2.0"
+    "run-sequence": "^1.1.5",
+    "del": "^2.2.0",
+    "minimist": "^1.2.0",
+    "urijs": "^1.17.0"
   },
   "license": "MIT"
 }
