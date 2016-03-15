@@ -10,7 +10,8 @@
     "run-sequence": "^1.1.5",
     "del": "^2.2.0",
     "minimist": "^1.2.0",
-    "urijs": "^1.17.0"
+    "urijs": "^1.17.0",
+    "smelly-event-emitter": "^0.1"
   },
   "license": "MIT"
 }

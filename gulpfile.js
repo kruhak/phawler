@@ -27,12 +27,17 @@ gulp.task('module:urijs', function() {
     return gulp.src('node_modules/urijs/**/*').pipe(gulp.dest(buildDir + '/vendor/urijs'));
 });
 
+gulp.task('module:eventEmitter', function() {
+  return gulp.src('node_modules/smelly-event-emitter/**/*').pipe(gulp.dest(buildDir + '/vendor/smelly-event-emitter'));
+});
+
 gulp.task('build', function(callback) {
     runSequence(
         'clean',
         ['compile',
         'module:minimist',
-        'module:urijs'],
+        'module:urijs',
+        'module:eventEmitter'],
         callback
     );
 });
