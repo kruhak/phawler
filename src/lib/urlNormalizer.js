@@ -3,7 +3,7 @@ import URI from '../vendor/urijs/src/URI.js';
 export default class UrlNormalizer {
 
   constructor(baseUrl) {
-    this.baseUrl = new URI(baseUrl).normalize();
+    this.baseUrl = baseUrl;
   }
 
   normalize(values) {

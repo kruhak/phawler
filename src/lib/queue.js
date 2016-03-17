@@ -15,6 +15,10 @@ export default class Queue {
       : false;
   }
 
+  addMultiple(paths) {
+    paths.forEach((path) => this.add(path));
+  }
+
   claim() {
     this.index++;
     return this.pool[this.index];
