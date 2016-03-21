@@ -1,18 +1,24 @@
 export default class Implementor {
 
-  constructor(modules) {
-    this.modules = modules;
+  constructor(constructors) {
+    this.constructors = constructors;
+    this.modules = [];
   }
 
-  init(crawler) {
-    this.modules.forEach((module) => module.init(crawler));
+  init(worker) {
+    this.constructors.forEach((constructor) => {
+      this.modules.push(new constructor(worker));
+    });
+    
   }
 
   getResult() {
     let result = {};
-
-
-
+    
+    this.modules.forEach((module) => {
+      result[module.id] = module.getResult();
+    });
+    
     return result;
   }
 

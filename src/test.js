@@ -1,11 +1,17 @@
 import Crawler from './lib/crawlerNew';
 import Loader from './lib/loader';
+import Implementor from './lib/implementor';
 import fs from 'fs';
 
-const modules = Loader.getModules();
-console.log(JSON.stringify(modules, null, 4));
+let modules = Loader.getModules();
+console.log(modules);
+let imps = new Implementor(modules);
+
+console.log(JSON.stringify(imps.create({}), null, 4));
 
 
+
+/*
 var crawler = new Crawler('http://phantomjs.org/');
 
 crawler.on('crawlingEnd', () => {
@@ -19,3 +25,4 @@ crawler.on('onResourceReceived', (response) => {
 
 crawler.init();
 crawler.start();
+  */
