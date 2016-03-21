@@ -4,9 +4,10 @@ import evaluates from './evaluates';
 
 export default class Worker extends EventEmitter {
 
-  constructor() {
+  constructor(constructors) {
     super();
 
+    this.constructors = constructors;
     this.page = webPage.create();
     this.setPhantomEvents();
   }
@@ -33,14 +34,22 @@ export default class Worker extends EventEmitter {
   }
 
   process(url) {
-    return new Promise((resolve, reject) => {
-      this.page.open(url, (status) => {
-        let urls = this.page.evaluate(evaluates.findUrls);
-        
+    let self = this;
 
-        resolve(urls);
-      });
-    })
+    let modules = this.constructors.map(construct => {
+      return new construct(self);
+    });
+
+    this.page.open(url, (status) => {
+      this.emit('onPageOpen', this.page);
+
+      let urls = this.page.evaluate(evaluates.findUrls);
+      let result = {};
+
+      modules.forEach(module => result[module.id] = module.getResult());
+
+      this.emit('onPageCrawled', url, urls, result);
+    });
   }
 
 }
