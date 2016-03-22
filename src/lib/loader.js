@@ -4,7 +4,7 @@ import { endsWith } from './helper';
 export default class Loader {
 
   constructor() {
-    this.path = fs.absolute('./modules_new');
+    this.path = fs.absolute('./modules');
   }
 
   load(name) {

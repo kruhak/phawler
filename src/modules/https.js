@@ -1,10 +1,7 @@
-import Module from '../lib/moduleBase';
-
-export default class HTTPS extends Module {
+export default class HTTPS {
 
   constructor(worker) {
-    super(worker);
-
+    this.worker = worker;
     this.result = [];
     this.id = 'https';
 
@@ -15,6 +12,10 @@ export default class HTTPS extends Module {
     if (requestData.url.indexOf('http://') > -1) {
       this.result.push(requestData.url);
     }
+  }
+
+  getResult() {
+    return this.result;
   }
 
 }

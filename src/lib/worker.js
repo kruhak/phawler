@@ -1,6 +1,6 @@
 import EventEmitter from '../vendor/smelly-event-emitter/dist/event-emitter.js';
 import webPage from 'webpage';
-import evaluates from './evaluates';
+import { findUrls } from './evaluates';
 
 export default class Worker extends EventEmitter {
 
@@ -43,7 +43,7 @@ export default class Worker extends EventEmitter {
     this.page.open(url, (status) => {
       this.emit('onPageOpen', this.page);
 
-      let urls = this.page.evaluate(evaluates.findUrls);
+      let urls = this.page.evaluate(findUrls);
       let result = {};
 
       modules.forEach(module => result[module.id] = module.getResult());

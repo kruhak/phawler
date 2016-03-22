@@ -3,8 +3,6 @@ import URI from '../vendor/urijs/src/URI.js';
 import Worker from './worker';
 import Queue from './queue';
 import UrlNormalizer from './urlNormalizer';
-import evaluates from './evaluates';
-import webPage from 'webpage';
 
 export default class Crawler extends EventEmitter {
 
@@ -26,6 +24,7 @@ export default class Crawler extends EventEmitter {
     this.crawl(this.queue.claim());
 
     this.worker.on('onPageCrawled', (pageUrl, urls, result) => {
+      console.log(pageUrl);
       this.result[pageUrl] = result;
       let normalized = this.normalizer.normalize(urls);
       this.queue.addMultiple(normalized);
