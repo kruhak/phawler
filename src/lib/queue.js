@@ -9,6 +9,10 @@ export default class Queue {
     return this.pool.length;
   }
 
+  get current() {
+    return this.index;
+  }
+
   add(path) {
     return (this.pool.indexOf(path) === -1)
       ? this.pool.push(path)

@@ -39,10 +39,16 @@ export default class Crawler extends EventEmitter {
   }
 
   next() {
-    this.limit++;
-
-    this.limit < 10 && this.queue.size !== 0
+    this.checkLimit() && this.queue.size !== 0
       ? this.crawl(this.queue.claim())
       : this.emit('crawlingEnd', this.result);
+  }
+
+  checkLimit() {
+    if (this.limit !== 0) {
+      return this.queue.current < this.limit;
+    }
+
+    return true;
   }
 }

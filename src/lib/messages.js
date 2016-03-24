@@ -15,7 +15,8 @@ let messages = {
     -h, --help        Display help information
  `,
   urlMiss: 'Missing required URL parameter',
-  start: 'Start crawling...'
+  start: 'Start crawling...',
+  end: 'Crawling successfully completed'
 };
 
 export default messages;

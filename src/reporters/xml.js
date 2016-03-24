@@ -39,4 +39,9 @@ export default class XmlReporter {
     return xml;
   }
 
+  static processResult(result) {
+    let xmlReport = new XmlReporter(result);
+    return xmlReport.report();
+  }
+
 }

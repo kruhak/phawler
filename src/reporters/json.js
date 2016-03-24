@@ -24,4 +24,9 @@ export default class JsonReporter {
     return JSON.stringify(this.result, null, 4);
   }
 
+  static processResult(result) {
+    let jsonReport = new JsonReporter(result);
+    return jsonReport.report();
+  }
+
 }

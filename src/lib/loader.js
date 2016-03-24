@@ -3,8 +3,8 @@ import { endsWith } from './helper';
 
 export default class Loader {
 
-  constructor() {
-    this.path = fs.absolute('./modules');
+  constructor(path = './modules') {
+    this.path = fs.absolute(path);
   }
 
   load(name) {
