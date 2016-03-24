@@ -1,12 +1,14 @@
 import EventEmitter from '../vendor/smelly-event-emitter/dist/event-emitter.js';
 import webPage from 'webpage';
 import { findUrls } from './evaluates';
+import { extractValue } from './helper';
 
 export default class Worker extends EventEmitter {
 
-  constructor(constructors) {
+  constructor(constructors, config) {
     super();
 
+    this.modulesConfig = extractValue(config, 'modules') || {};
     this.constructors = constructors;
     this.page = webPage.create();
     this.setPhantomEvents();

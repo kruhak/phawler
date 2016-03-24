@@ -3,17 +3,18 @@ import URI from '../vendor/urijs/src/URI.js';
 import Worker from './worker';
 import Queue from './queue';
 import UrlNormalizer from './urlNormalizer';
+import { extractValue } from './helper';
 
 export default class Crawler extends EventEmitter {
 
-  constructor(baseUrl, constructors) {
+  constructor(baseUrl, constructors, config) {
     super();
 
-    this.limit = 0;
+    this.limit = extractValue(config, 'crawler.limit') || 0;
 
     this.result = {};
 
-    this.worker = new Worker(constructors);
+    this.worker = new Worker(constructors, config);
     this.baseUrl = new URI(baseUrl).normalize();
     this.queue = new Queue();
     this.normalizer = new UrlNormalizer(this.baseUrl);

@@ -33,6 +33,7 @@ export default class Loader {
   }
 
   static getModules(list = []) {
+    list = (typeof list === 'string') ? list.split(',') : list;
     let loader = new Loader();
     return list.length > 0 ? loader.loadList(list) : loader.loadAll();
   }

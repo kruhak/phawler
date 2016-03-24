@@ -14,7 +14,8 @@ let messages = {
     -m, --modules     Comma separated crawler modules list (All modules will be running by default)
     -h, --help        Display help information
  `,
-  urlMiss: 'Missing required URL parameter'
+  urlMiss: 'Missing required URL parameter',
+  start: 'Start crawling...'
 };
 
 export default messages;

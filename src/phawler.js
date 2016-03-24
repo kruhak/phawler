@@ -1,85 +1,31 @@
-#!/usr/bin/env phantomjs
+import Crawler from './lib/crawler';
+import Loader from './lib/loader';
+import Argumentor from './lib/argumentor';
+import ConfigParser from './lib/configParser';
+import messages from './lib/messages';
+import { stringify, dump, extractValue } from './lib/helper';
+import URI from './vendor/urijs/src/URI'
 
-import system from 'system';
-import fs from 'fs';
-import minimist from './vendor/minimist/index.js';
-import Crawler from './lib/crawler.js'
-
-var args = minimist(system.args, {
-  alias: {
-    url: 'u',
-    list: 'l',
-    report: 'r',
-    limit: 'l',
-    config: 'c',
-    modules: 'm',
-    verbose: 'v',
-    help: 'h'
-  }
-});
-
-var modules = [];
-var modulesList = ['http', 'screenshot', 'status', 'scaled', 'bigfiles'];
-
-var reporterName = 'json';
-var config = {};
+let args = Argumentor.getArgs();
 
 if (Object.keys(args).length === 1 || args.help) {
-  var help = `
-    Phawler. Module based crawling tool working on PhantomJS.
-
-    Usage:
-      phantomjs phawler.js -u <site_url> <options>
-
-    Options:
-
-    -u, --url         URL what will be crawled
-    -r, --report      Reporter module. Available values: json (default), xml
-    -l, --limit       Maximum number of pages that can be crawled
-    -c, --config      Path to configuration file
-    -m, --modules     Comma separated crawler modules list (All modules will be running by default)
-    -h, --help        Display help information
- `;
-
-  console.log(help);
+  console.log(messages.help);
   phantom.exit();
 }
 
 if (!args.url || typeof args.url !== 'string') {
-  console.log('URL not passed');
+  console.log(messages.urlMiss);
   phantom.exit();
 }
 
-// Init modules
-if (args.modules && typeof args.modules === 'string') {
-  modulesList = args.modules.split(',');
-}
-modulesList.forEach((name) => {
-  modules.push(require('./modules/' + name + '.js'));
+let config = ConfigParser.getConfiguration(args.config);
+let moduleConstructors = Loader.getModules(args.modules);
+let crawler = new Crawler(args.url, moduleConstructors, config);
+
+crawler.on('crawlingEnd', (result) => {
+  console.log(JSON.stringify(result, null, 4));
+  phantom.exit();
 });
 
-// Init report module
-if (args.report && typeof args.report === 'string') {
-  reporterName = args.report;
-}
-var reporterModule = require('./reporters/' + reporterName + '.js');
-
-// Init configuration
-if (args.config && typeof args.config === 'string') {
-  config = require(fs.absolute(args.config));
-}
-
-// Init limit
-if (args.limit && typeof args.limit === 'number') {
-  config.limit = args.limit;
-}
-
-var crawler = new Crawler();
-crawler.init(modules, config);
-crawler.start(args.url);
-crawler.crawlingEnd = () => {
-  var reporter = new reporterModule(crawler.result);
-  var report = reporter.report();
-  fs.write('result.' + reporterName, report, 'w');
-  phantom.exit();
-};
+console.log(messages.start);
+crawler.start();

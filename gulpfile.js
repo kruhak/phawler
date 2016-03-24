@@ -31,13 +31,18 @@ gulp.task('module:eventEmitter', function() {
   return gulp.src('node_modules/smelly-event-emitter/**/*').pipe(gulp.dest(buildDir + '/vendor/smelly-event-emitter'));
 });
 
+gulp.task('module:deepmerge', function() {
+  return gulp.src('node_modules/deepmerge/**/*').pipe(gulp.dest(buildDir + '/vendor/deepmerge'));
+});
+
 gulp.task('build', function(callback) {
     runSequence(
         'clean',
         ['compile',
         'module:minimist',
         'module:urijs',
-        'module:eventEmitter'],
+        'module:eventEmitter',
+        'module:deepmerge'],
         callback
     );
 });

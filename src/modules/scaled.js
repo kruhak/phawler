@@ -1,3 +1,5 @@
+import { extractValue } from '../lib/helper';
+
 function _evalFindScaledImages(maxScaleIndex ) {
   var scaledImages = [];
   var images = document.getElementsByTagName('img');
@@ -20,9 +22,11 @@ export default class ScaledImages {
   constructor(worker) {
     this.id = 'scaled';
     this.worker = worker;
-    this.result = [];
 
-    this.scaleIndex = 1;
+    this.config = extractValue(this.worker, 'modulesConfig.scaled');
+    this.config.scaleIndex = this.config.scaleIndex || 1.5;
+
+    this.result = [];
 
     this.worker.on('onPageOpen', (page) => this.findScaledImg(page));
   }
@@ -32,7 +36,7 @@ export default class ScaledImages {
   }
   
   findScaledImg(page) {
-    this.result = page.evaluate(_evalFindScaledImages, this.scaleIndex);
+    this.result = page.evaluate(_evalFindScaledImages, this.config.scaleIndex);
   }
   
 }
