@@ -10,6 +10,7 @@ export default class UrlNormalizer {
     let normalized = [];
 
     values.forEach((value) => {
+      value = this.filterHash(value);
       value = new URI(value).normalize();
 
       if (value.is('url')) {
@@ -23,6 +24,10 @@ export default class UrlNormalizer {
     });
 
     return normalized;
+  }
+
+  filterHash(uri) {
+    return uri.split('#')[0];
   }
 
 }
