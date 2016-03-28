@@ -28,7 +28,7 @@ export default class ScaledImages {
 
     this.result = [];
 
-    this.worker.on('onPageOpen', (page) => this.findScaledImg(page));
+    this.worker.on('onPageOpenSuccess', (page) => this.findScaledImg(page));
   }
 
   getResult() {

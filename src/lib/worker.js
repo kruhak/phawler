@@ -43,14 +43,18 @@ export default class Worker extends EventEmitter {
     this.modules.forEach(module => module.clean());
 
     this.page.open(url, (status) => {
-      this.emit('onPageOpen', this.page);
+      this.emit('onPageOpen', this.page, status);
 
-      let urls = this.page.evaluate(findUrls);
+      let urls = [];
       let result = {};
 
-      this.modules.forEach(module => result[module.id] = module.getResult());
+      if (status == 'success') {
+        this.emit('onPageOpenSuccess', this.page);
+        urls = this.page.evaluate(findUrls);
+      }
 
-      this.emit('onPageCrawled', url, urls, result);
+      this.modules.forEach(module => result[module.id] = module.getResult());
+      this.emit('onPageCrawled', url, urls, result, status);
     });
   }
 

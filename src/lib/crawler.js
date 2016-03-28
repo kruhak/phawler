@@ -24,8 +24,8 @@ export default class Crawler extends EventEmitter {
     this.queue.add(this.baseUrl.toString());
     this.crawl(this.queue.claim());
 
-    this.worker.on('onPageCrawled', (pageUrl, urls, result) => {
-      console.log(pageUrl);
+    this.worker.on('onPageCrawled', (pageUrl, urls, result, status) => {
+      console.log(pageUrl + ' : ' + status);
       this.result[pageUrl] = result;
       let normalized = this.normalizer.normalize(urls);
       this.queue.addMultiple(normalized);
