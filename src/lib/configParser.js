@@ -6,7 +6,11 @@ const defaultConfig = {
 
   // Crawler settings
   crawler: {
-    limit: 0
+    limit: 0,
+    viewportSize: {
+      width: 1920,
+      height: 1080
+    }
   },
 
   // Modules specific

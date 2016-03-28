@@ -9,6 +9,11 @@ export default class Worker extends EventEmitter {
     super();
 
     this.page = webPage.create();
+    this.page.viewportSize = extractValue(config, 'crawler.viewportSize') || {
+        width: 1920,
+        height: 1080
+    };
+
     this.setPhantomEvents();
 
     this.modulesConfig = extractValue(config, 'modules') || {};
