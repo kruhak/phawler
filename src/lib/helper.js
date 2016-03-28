@@ -23,6 +23,6 @@ export function extractValue(object, key) {
     return object[keyChain[0]];
   }
   else {
-    return null;
+    return {};
   }
 }
