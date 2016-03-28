@@ -18,4 +18,8 @@ export default class HTTPS {
     return this.result;
   }
 
+  clean() {
+    this.result = [];
+  };
+
 }

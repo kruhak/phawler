@@ -38,5 +38,9 @@ export default class ScaledImages {
   findScaledImg(page) {
     this.result = page.evaluate(_evalFindScaledImages, this.config.scaleIndex);
   }
+
+  clean() {
+    this.result = [];
+  };
   
 }

@@ -3,7 +3,6 @@ import minimist from '../vendor/minimist/index.js';
 
 const alias = {
   url: 'u',
-  list: 'l',
   report: 'r',
   limit: 'l',
   config: 'c',
@@ -12,7 +11,7 @@ const alias = {
   help: 'h'
 };
 
-export default class Argumentor {
+export default class ArgumentParser {
 
   constructor(aliases) {
     this.aliases = aliases;
@@ -25,7 +24,7 @@ export default class Argumentor {
   }
 
   static getArgs() {
-    let argumentor = new Argumentor(alias);
+    let argumentor = new ArgumentParser(alias);
     return argumentor.convertSystemArgs();
   }
 

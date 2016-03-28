@@ -1,13 +1,13 @@
 import Crawler from './lib/crawler';
 import Loader from './lib/loader';
-import Argumentor from './lib/argumentor';
+import ArgumentParser from './lib/argumentParser';
 import ConfigParser from './lib/configParser';
 import Reporter from './lib/reporter';
 import messages from './lib/messages';
 import { stringify, dump, extractValue } from './lib/helper';
 import URI from './vendor/urijs/src/URI'
 
-let args = Argumentor.getArgs();
+let args = ArgumentParser.getArgs();
 
 if (Object.keys(args).length === 1 || args.help) {
   console.log(messages.help);
@@ -20,6 +20,10 @@ if (!args.url || typeof args.url !== 'string') {
 }
 
 let config = ConfigParser.getConfiguration(args.config);
+
+// Override limit parameter.
+config.crawler.limit = args.limit || config.crawler.limit;
+
 let moduleConstructors = Loader.getModules(args.modules);
 let crawler = new Crawler(args.url, moduleConstructors, config);
 

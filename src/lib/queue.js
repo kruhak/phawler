@@ -25,7 +25,7 @@ export default class Queue {
 
   claim() {
     this.index++;
-    return this.pool[this.index];
+    return this.pool[this.index] || false;
   }
 
   clean() {

@@ -22,7 +22,7 @@ export default class Reporter {
   }
 
   writeFile() {
-    fs.write('result.' + this.formatName, this.formatResult, 'w');
+    fs.write(this.outputFilePath + 'result.' + this.formatName, this.formatResult, 'w');
   }
 
   static createReport (result, config, formatName = null) {

@@ -8,10 +8,14 @@ export default class Worker extends EventEmitter {
   constructor(constructors, config) {
     super();
 
-    this.modulesConfig = extractValue(config, 'modules') || {};
-    this.constructors = constructors;
     this.page = webPage.create();
     this.setPhantomEvents();
+
+    this.modulesConfig = extractValue(config, 'modules') || {};
+    let self = this;
+    this.modules = constructors.map(construct => {
+      return new construct(self);
+    });
   }
 
   setPhantomEvents() {
@@ -36,11 +40,7 @@ export default class Worker extends EventEmitter {
   }
 
   process(url) {
-    let self = this;
-
-    let modules = this.constructors.map(construct => {
-      return new construct(self);
-    });
+    this.modules.forEach(module => module.clean());
 
     this.page.open(url, (status) => {
       this.emit('onPageOpen', this.page);
@@ -48,7 +48,7 @@ export default class Worker extends EventEmitter {
       let urls = this.page.evaluate(findUrls);
       let result = {};
 
-      modules.forEach(module => result[module.id] = module.getResult());
+      this.modules.forEach(module => result[module.id] = module.getResult());
 
       this.emit('onPageCrawled', url, urls, result);
     });

@@ -39,9 +39,15 @@ export default class Crawler extends EventEmitter {
   }
 
   next() {
-    this.checkLimit() && this.queue.size !== 0
-      ? this.crawl(this.queue.claim())
-      : this.emit('crawlingEnd', this.result);
+    if (this.checkLimit() && this.queue.size !== 0) {
+      let nextElement = this.queue.claim();
+      nextElement
+        ? this.crawl(nextElement)
+        : this.emit('crawlingEnd', this.result);
+    }
+    else {
+      this.emit('crawlingEnd', this.result);
+    }
   }
 
   checkLimit() {
