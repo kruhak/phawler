@@ -5,7 +5,7 @@
 ## Installation
 
   - Install [PhantomJS](http://phantomjs.org/)
-  - Install dependencies by executing `npm install` within **Phawler** root directory or manually put [minimist](https://github.com/substack/minimist) and [urijs](https://github.com/medialize/URI.js/) modules to **node_modules** directory.
+  - Extract Phawler to any directory and run using PhantomJS.
 
 ## Available modules
 
@@ -13,7 +13,6 @@
  - **Scaled images (scaled)** - checks for scaled (usually down) images by CSS styles so loaded images have different original size (usually bigger).
  - **Big files (bigfiles)** - checks for big assets loaded on pages.
  - **Screenshot (screenshot)** - makes screenshots of crawled pages.
- - **Status (status)** - checkes if page can actually be loaded or not (for example if network errors occurred).
  
 **Reporting:**
  
