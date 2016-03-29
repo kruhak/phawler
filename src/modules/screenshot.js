@@ -1,8 +1,14 @@
 import fs from 'fs';
 import { extractValue } from '../lib/helper';
 
+/**
+ * Create page screenshot and sae to file.
+ */
 export default class Screenshot {
 
+  /**
+   * @param {Object} worker Crawler worker.
+   */
   constructor(worker) {
     this.id = 'screenshot';
     this.worker = worker;
@@ -15,14 +21,15 @@ export default class Screenshot {
     this.result = '';
     fs.removeTree(this.config.folder);
 
-    this.worker.on('onPageOpenSuccess', (page) => this.getScreenshot(page));
+    this.worker.on('onPageOpenSuccess', (page) => this.renderScreenshot(page));
   }
 
-  getResult() {
-    return this.result;
-  }
-
-  getScreenshot(page) {
+  /**
+   * Render screenshot for page.
+   *
+   * @param {Object} page PhantomJS page object.
+   */
+  renderScreenshot(page) {
     let filename = this.config.folder + '/' + page.title + '.jpg';
 
     page.render(filename, {
@@ -33,8 +40,20 @@ export default class Screenshot {
     this.result = filename;
   }
 
+  /**
+   * Get module result.
+   *
+   * @returns {Array} Results array.
+   */
+  getResult() {
+    return this.result;
+  }
+
+  /**
+   * Clean module result storage.
+   */
   clean() {
     this.result = '';
   };
-  
+
 }

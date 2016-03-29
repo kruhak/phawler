@@ -1,14 +1,10 @@
 /**
- * @module XmlReporter
+ * XML report format.
  */
-
-/** @class */
 export default class XmlReporter {
 
   /**
-   * @constructor
-   *
-   * @param {object} result - Page result after crawling process end.
+   * @param {Object} result Page result object.
    */
   constructor(result) {
 
@@ -17,8 +13,7 @@ export default class XmlReporter {
   }
 
   /**
-   * @returns {string}
-   *   Formatted XML string.
+   * @return {string} Formatted XML string.
    */
   report() {
     var xml = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -39,6 +34,13 @@ export default class XmlReporter {
     return xml;
   }
 
+  /**
+   * Create XML string from result object.
+   *
+   * @param {Object} result Page result object.
+   *
+   * @return {string} XML string.
+   */
   static processResult(result) {
     let xmlReport = new XmlReporter(result);
     return xmlReport.report();

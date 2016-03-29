@@ -5,8 +5,16 @@ import Queue from './queue';
 import UrlNormalizer from './urlNormalizer';
 import { extractValue } from './helper';
 
+/**
+ * Crawl site pages using worker.
+ */
 export default class Crawler extends EventEmitter {
 
+  /**
+   * @param {String} baseUrl URL what has been used as base for crawling.
+   * @param {Object[]} constructors Modules constructors.
+   * @param {Object} config Configuration object.
+   */
   constructor(baseUrl, constructors, config) {
     super();
 
@@ -20,6 +28,9 @@ export default class Crawler extends EventEmitter {
     this.normalizer = new UrlNormalizer(this.baseUrl);
   }
 
+  /**
+   * Start crawling process.
+   */
   start() {
     this.queue.add(this.baseUrl.toString());
     this.crawl(this.queue.claim());
@@ -35,10 +46,20 @@ export default class Crawler extends EventEmitter {
     });
   }
 
+  /**
+   * Crawl URL using worker.
+   *
+   * @param {String} url URL what will be crawled.
+   */
   crawl(url) {
     this.worker.process(url);
   }
 
+  /**
+   * Process next element from queue or stop crawling process.
+   *
+   * @emits {crawlingEnd} Emit event when crawling process successfully stopped.
+   */
   next() {
     if (this.checkLimit() && this.queue.size !== 0) {
       let nextElement = this.queue.claim();
@@ -51,6 +72,11 @@ export default class Crawler extends EventEmitter {
     }
   }
 
+  /**
+   * check limit parameter.
+   *
+   * @return {boolean} Will next element crawled or not.
+   */
   checkLimit() {
     if (this.limit !== 0) {
       return this.queue.current < this.limit;

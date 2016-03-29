@@ -1,11 +1,23 @@
 import URI from '../vendor/urijs/src/URI.js';
 
+/**
+ * Filter and normalize URLs using URI.js library.
+ */
 export default class UrlNormalizer {
 
+  /**
+   * @param {Object} baseUrl URI.js object of base URL. 
+   */
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
 
+  /**
+   * Normalize URI values.
+   *
+   * @param {Array} values Not processed URLs.
+   * @return {Array} Filtered and normalized URLs.
+   */
   normalize(values) {
     let normalized = [];
 
@@ -26,6 +38,12 @@ export default class UrlNormalizer {
     return normalized;
   }
 
+  /**
+   * Filter anchor hash from string.
+   * 
+   * @param {String} uri URL string.
+   * @return {*} URL without anchor hash.
+   */
   filterHash(uri) {
     return uri.split('#')[0];
   }

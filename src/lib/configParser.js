@@ -2,6 +2,9 @@ import fs from 'fs';
 import deepmerge  from '../vendor/deepmerge/index';
 import { dump } from './helper';
 
+/**
+ * Default configuration.
+ */
 const defaultConfig = {
 
   // Crawler settings
@@ -26,16 +29,29 @@ const defaultConfig = {
   outputFilePath: './'
 };
 
+/**
+ * Parse configuration file and merge with default params.
+ */
 export default class ConfigParser {
 
   constructor() {
     this.config = {};
   }
 
+  /**
+   * Merge some new values with existing.
+   *
+   * @param {Object} values New values.
+   */
   setValues(values) {
     this.config = deepmerge(this.config, values);
   }
 
+  /**
+   * Get configuration from file and merge with existing.
+   *
+   * @param filePath
+   */
   setConfigFileValues(filePath = null) {
     if (filePath) {
       filePath = fs.absolute(filePath);
@@ -44,10 +60,22 @@ export default class ConfigParser {
     }
   }
 
+  /**
+   * Return final configuration.
+   *
+   * @return {Object} Configuration object.
+   */
   getConfig() {
     return this.config;
   }
 
+  /**
+   * Get coonfiguration using default values merged with values from file.
+   *
+   * @param {String} filePath Path to configuration file.
+   *
+   * @return {Object} Configuration object.
+   */
   static getConfiguration(filePath = null) {
     let configParser = new ConfigParser();
     configParser.setValues(defaultConfig);

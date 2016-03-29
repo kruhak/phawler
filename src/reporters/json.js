@@ -1,29 +1,29 @@
 /**
- * @module JsonReporter
+ * JSON report format.
  */
-
-/** @class */
 export default class JsonReporter {
 
   /**
-   * @constructor
-   *
-   * @param {object} result - Page result after crawling process end.
+   * @param {Object} result Page result object.
    */
   constructor(result) {
-
-    /** @type {object} */
     this.result = result;
   }
 
   /**
-   * @returns {string}
-   *   Formatted JSON string.
+   * @return {string} Formatted JSON string.
    */
   report() {
     return JSON.stringify(this.result, null, 4);
   }
 
+  /**
+   * Create JSON string from result object.
+   *
+   * @param {Object} result Page result object.
+   *
+   * @return {string} Formatted JSON string.
+   */
   static processResult(result) {
     let jsonReport = new JsonReporter(result);
     return jsonReport.report();

@@ -3,8 +3,20 @@ import webPage from 'webpage';
 import { findUrls } from './evaluates';
 import { extractValue } from './helper';
 
+/**
+ * Crawler worker.
+ *
+ * @emit {onPageOpen} Emit when page has been open.
+ * @emit {onPageOpenSuccess} Emit when page has been open with success status.
+ * @emit {onPageCrawled} Emit when all actions on page have done.
+ * @emit All PhantomJS events.
+ */
 export default class Worker extends EventEmitter {
 
+  /**
+   * @param {Array} constructors Modules constructors.
+   * @param {Object} config Configuration object.
+   */
   constructor(constructors, config) {
     super();
 
@@ -23,6 +35,9 @@ export default class Worker extends EventEmitter {
     });
   }
 
+  /**
+   * Set PhantomJS events to crawler event emitter.
+   */
   setPhantomEvents() {
     this.page.onAlert = (msg) => this.emit('onAlert', msg);
     this.page.onCallback = (data) => this.emit('onCallback', data);
@@ -44,6 +59,11 @@ export default class Worker extends EventEmitter {
     this.page.onUrlChanged = (targetUrl) => this.emit('onUrlChanged', targetUrl);
   }
 
+  /**
+   * Open URL and emit events.
+   *
+   * @param {String} url URL for crawling.
+   */
   process(url) {
     this.modules.forEach(module => module.clean());
 

@@ -1,5 +1,12 @@
 import { extractValue } from '../lib/helper';
 
+/**
+ * Evaluate function. Find scaled images on page.
+ *
+ * @param {Number} maxScaleIndex Maximum scale index.
+ * @return {Array} Array of links to scaled images.
+ * @private
+ */
 function _evalFindScaledImages(maxScaleIndex ) {
   var scaledImages = [];
   var images = document.getElementsByTagName('img');
@@ -17,8 +24,14 @@ function _evalFindScaledImages(maxScaleIndex ) {
   return scaledImages;
 }
 
+/**
+ * Find scaled images on page.
+ */
 export default class ScaledImages {
 
+  /**
+   * @param {Object} worker Crawler worker.
+   */
   constructor(worker) {
     this.id = 'scaled';
     this.worker = worker;
@@ -31,14 +44,22 @@ export default class ScaledImages {
     this.worker.on('onPageOpenSuccess', (page) => this.findScaledImg(page));
   }
 
-  getResult() {
-    return this.result;
-  }
-  
   findScaledImg(page) {
     this.result = page.evaluate(_evalFindScaledImages, this.config.scaleIndex);
   }
 
+  /**
+   * Get module result.
+   *
+   * @returns {Array} Results array.
+   */
+  getResult() {
+    return this.result;
+  }
+
+  /**
+   * Clean module result storage.
+   */
   clean() {
     this.result = [];
   };

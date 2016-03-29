@@ -1,3 +1,7 @@
+/**
+ * Main script.
+ */
+
 import Crawler from './lib/crawler';
 import Loader from './lib/loader';
 import ArgumentParser from './lib/argumentParser';

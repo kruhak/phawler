@@ -1,5 +1,8 @@
 export default class HTTPS {
 
+  /**
+   * @param {Object} worker Crawler worker.
+   */
   constructor(worker) {
     this.worker = worker;
     this.result = [];
@@ -14,10 +17,18 @@ export default class HTTPS {
     }
   }
 
+  /**
+   * Get module result.
+   *
+   * @returns {Array} Results array.
+   */
   getResult() {
     return this.result;
   }
 
+  /**
+   * Clean module result storage.
+   */
   clean() {
     this.result = [];
   };

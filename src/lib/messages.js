@@ -1,3 +1,6 @@
+/**
+ * System messages.
+ */
 let messages = {
   help: `
     Phawler. Module based crawling tool working on PhantomJS.
