@@ -8,8 +8,6 @@ import ArgumentParser from './lib/argumentParser';
 import ConfigParser from './lib/configParser';
 import Reporter from './lib/reporter';
 import messages from './lib/messages';
-import { stringify, dump, extractValue } from './lib/helper';
-import URI from './vendor/urijs/src/URI'
 
 let args = ArgumentParser.getArgs();
 

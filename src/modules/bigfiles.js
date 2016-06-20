@@ -1,4 +1,4 @@
-import { dump, extractValue } from '../lib/helper';
+import { extractValue } from '../lib/helper';
 
 /**
  * Search resources with big content length.

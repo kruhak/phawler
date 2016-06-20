@@ -1,6 +1,5 @@
 import fs from 'fs';
 import deepmerge  from '../vendor/deepmerge/index';
-import { dump } from './helper';
 
 /**
  * Default configuration.

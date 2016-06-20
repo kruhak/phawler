@@ -1,6 +1,5 @@
 import fs from 'fs';
 import Loader from './loader';
-import { dump } from './helper'
 
 /**
  * Create report from crawling results.
