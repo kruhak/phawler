@@ -17,6 +17,7 @@ export default class Screenshot {
     this.config.format = this.config.format || 'jpeg';
     this.config.quality = this.config.quality || 75;
     this.config.folder = this.config.folder || './screens';
+    this.config.bgFix = (this.config.bgFix === undefined) ? true : this.config.bgFix;
 
     this.result = '';
     fs.removeTree(this.config.folder);
@@ -31,6 +32,12 @@ export default class Screenshot {
    */
   renderScreenshot(page) {
     let filename = this.config.folder + '/' + page.title + '.jpg';
+
+    if (this.config.bgFix) {
+      page.evaluate(function() {
+        document.body.bgColor = 'white';
+      });
+    }
 
     page.render(filename, {
       format: this.config.format,
